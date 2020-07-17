@@ -65,18 +65,18 @@ public class SortingVisualizer {
                 case "Selection":
                     sortingThread = new Thread(new SelectionSort(toBeSorted, frame));
                     break;
-//
-//                case "Insertion":
-//                    sortingThread = new Thread(new InsertionSort(toBeSorted, frame, false));
-//                    break;
+
+                case "Insertion":
+                    sortingThread = new Thread(new InsertionSort(toBeSorted, frame));
+                    break;
 //
 //                case "Gnome":
 //                    sortingThread = new Thread(new GnomeSort(toBeSorted, frame, false));
 //                    break;
 //
-//                case "Merge":
-//                    sortingThread = new Thread(new MergeSort());
-//                    break;
+                case "Merge":
+                    sortingThread = new Thread(new MergeSort(toBeSorted, frame, toBeSorted.length));
+                    break;
 //
 //                case "Radix LSD":
 //                    sortingThread = new Thread(new RadixSort(toBeSorted, frame, true));

@@ -5,8 +5,8 @@ import org.sortingvisualizer.VisualizerFrame;
 
 public class SelectionSort implements Runnable {
 
-    Integer[] data;
-    VisualizerFrame frames;
+    private final Integer[] data;
+    private final VisualizerFrame frames;
 
     public SelectionSort(Integer[] data, VisualizerFrame frames) {
         this.data = data;
@@ -20,26 +20,23 @@ public class SelectionSort implements Runnable {
     }
 
     void sort() {
-
-        for (int frame = 0 ; frame < data.length - 1; frame++ ) {
-            for (int i = 0 ; i < data.length - 1 ; i++) {
-                int minIndex = i;
-                for (int j = i+1 ; j < data.length ; j++) {
-                        if (data[j] < data[minIndex]) {
-                            minIndex = j;
-                        }
-                        frames.reDrawArray(data, minIndex, j-1);
-                        try {
-                            Thread.sleep(SortingVisualizer.sleep);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+        for (int i = 0 ; i < data.length - 1 ; i++) {
+            int minIndex = i;
+            for (int j = i+1 ; j < data.length ; j++) {
+                if (data[j] < data[minIndex]) {
+                    minIndex = j;
                 }
-                int aux = data[minIndex];
-                data[minIndex] = data[i];
-                data[i] = aux;
+                frames.reDrawArray(data, minIndex, j-1);
+                try {
+                    Thread.sleep(SortingVisualizer.sleep);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            frames.reDrawArray(data);
+            int aux = data[minIndex];
+            data[minIndex] = data[i];
+            data[i] = aux;
         }
+        frames.reDrawArray(data);
     }
 }
