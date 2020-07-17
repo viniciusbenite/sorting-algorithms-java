@@ -27,28 +27,24 @@ public class MergeSort implements Runnable {
 
     private void merge(Integer[] data, Integer[] left, Integer[] right, int l, int r){
         int i = 0, j = 0, k = 0;
-        for (int f = 0 ; f < data.length - 1 ; f++) {
-            int current = data[f];
-            int next = data[f+1];
-            frames.reDrawArray(this.data, current, next);
+        while (i < l && j < r) {
+            if (left[i] <= right[j]) {
+                data[k++] = left[i++];
+            } else {
+                data[k++] = right[j++];
+            }
+            frames.reDrawArray(this.data, i, j, k);
             try {
                 Thread.sleep(SortingVisualizer.sleep);
             } catch(InterruptedException e) {
                 e.printStackTrace();
             }
-            while (i < l && j < r) {
-                if (left[i] <= right[j]) {
-                    data[k++] = left[i++];
-                } else {
-                    data[k++] = right[j++];
-                }
-            }
-            while (i < l) {
-                data[k++] = left[i++];
-            }
-            while (j < r) {
-                data[k++] = right[j++];
-            }
+        }
+        while (i < l) {
+            data[k++] = left[i++];
+        }
+        while (j < r) {
+            data[k++] = right[j++];
         }
         frames.reDrawArray(this.data);
     }
@@ -61,12 +57,8 @@ public class MergeSort implements Runnable {
         Integer[] left = new Integer[mid];
         Integer[] right = new Integer[size - mid];
 
-        for (int i = 0 ; i < mid ; i++) {
-            left[i] = data[i];
-        }
-        for (int i = mid ; i < size ; i++) {
-            right[i - mid] = data[i];
-        }
+        System.arraycopy(data, 0, left, 0, mid);
+        if (size - mid >= 0) System.arraycopy(data, mid, right, mid - mid, size - mid);
         sort(left, mid);
         sort(right, size - mid);
         merge(data, left, right, mid, size - mid);
